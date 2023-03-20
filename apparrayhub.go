@@ -221,6 +221,9 @@ func (h *AppArrayHub) SendCommand(message string) {
 				status, res, filename = h.DownloadFile(req.Command, client)
 				h.SendResponseCaller(NewCommandDownloadResponse(status, res, filename, req), CommandResultListener)
 			} else if req.CommandId == model.CommandWebsite {
+				status, res = h.OpenUrl(req.Command,client)
+				h.SendResponseCaller(NewCommandResponse(status, res, req), CommandResultListener)
+			} else if req.CommandId == model.CommandTerminal {
 				status, res = h.OpenTerminal(req.Command,client)
 				h.SendResponseCaller(NewCommandResponse(status, res, req), CommandResultListener)
 			} else {
